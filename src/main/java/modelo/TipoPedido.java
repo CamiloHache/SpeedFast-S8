@@ -1,4 +1,18 @@
 package modelo;
 
-public class TipoPedido {
+public enum TipoPedido {
+    COMIDA("Comida"),
+    ENCOMIENTA("Encomienta"),
+    EXPRESS("Express");
+
+    private final String nombre;
+
+    TipoPedido(String nombre) {
+        this.nombre = nombre;
+    }
+
+    @Override
+    public String toString() {
+        return nombre;
+    }
 }

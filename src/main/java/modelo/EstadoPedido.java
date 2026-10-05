@@ -1,4 +1,8 @@
 package modelo;
 
-public class EstadoPedido {
+public enum EstadoPedido {
+
+    PENDIENTE,
+    EN_REPARTO,
+    ENTREGADO
 }
