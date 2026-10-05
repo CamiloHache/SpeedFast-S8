@@ -119,4 +119,55 @@ public class EntregaDAO {
 
         return entregas;
     }
+
+    // UPDATE
+    public boolean actualizar(Entrega entrega) {
+
+        String sql = """
+            UPDATE entrega
+            SET id_pedido = ?, id_repartidor = ?, fecha = ?, hora = ?
+            WHERE id = ?
+            """;
+
+        try (
+                Connection conexion = ConexionBD.obtenerConexion();
+                PreparedStatement sentencia = conexion.prepareStatement(sql)
+        ) {
+
+            sentencia.setInt(1, entrega.getIdPedido());
+            sentencia.setInt(2, entrega.getIdRepartidor());
+            sentencia.setObject(3, entrega.getFecha());
+            sentencia.setObject(4, entrega.getHora());
+            sentencia.setInt(5, entrega.getId());
+
+            return sentencia.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+            return false;
+        }
+    }
+
+
+    // DELETE
+    public boolean eliminar(int id) {
+
+        String sql = "DELETE FROM entrega WHERE id = ?";
+
+        try (
+                Connection conexion = ConexionBD.obtenerConexion();
+                PreparedStatement sentencia = conexion.prepareStatement(sql)
+        ) {
+
+            sentencia.setInt(1, id);
+
+            return sentencia.executeUpdate() > 0;
+
+        } catch (SQLException e) {
+
+            e.printStackTrace();
+            return false;
+        }
+    }
 }
