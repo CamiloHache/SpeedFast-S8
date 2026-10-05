@@ -51,8 +51,8 @@ public class PedidoDAO {
             while(rs.next()) {
                 int id = rs.getInt("id");
                 String direccion = rs.getString("direccion");
-                TipoPedido tipo = TipoPedido.valueOf(rs.getString("tipo"));
-                EstadoPedido estado = EstadoPedido.valueOf(rs.getString("estado"));
+                TipoPedido tipo = TipoPedido.valueOf(rs.getString("tipo").toUpperCase());
+                EstadoPedido estado = EstadoPedido.valueOf(rs.getString("estado").toUpperCase());
                 Pedido pedido = new Pedido(id, direccion, tipo, estado);
                 pedidos.add(pedido);
             }
@@ -120,23 +120,31 @@ public class PedidoDAO {
 
     //Buscar pedido por id
     public Pedido buscarPorId(int id) {
-        String sql = "SELECT id, direccion, tipo estado FROM pedido WHERE id = ?";
 
-        try (Connection conexion = ConexionBD.obtenerConexion();
-             PreparedStatement sentencia = conexion.prepareStatement(sql)
+        String sql = "SELECT id, direccion, tipo, estado FROM pedido WHERE id = ?";
+
+        try (
+                Connection conexion = ConexionBD.obtenerConexion();
+                PreparedStatement sentencia = conexion.prepareStatement(sql)
         ) {
+
             sentencia.setInt(1, id);
 
             try (ResultSet rs = sentencia.executeQuery()) {
+
                 if (rs.next()) {
-                    TipoPedido tipo = TipoPedido.valueOf(rs.getString("tipo"));
-                    EstadoPedido estado = EstadoPedido.valueOf(rs.getString("estado"));
+
+                    TipoPedido tipo = TipoPedido.valueOf(rs.getString("tipo").toUpperCase());
+                    EstadoPedido estado = EstadoPedido.valueOf(rs.getString("estado").toUpperCase());
                     return new Pedido(rs.getInt("id"), rs.getString("direccion"), tipo, estado);
                 }
             }
+
         } catch (SQLException e) {
+
             e.printStackTrace();
         }
+
         return null;
     }
 }
