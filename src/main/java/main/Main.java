@@ -1,5 +1,75 @@
 package main;
 
+import dao.RepartidorDAO;
+import modelo.Repartidor;
+
+import java.util.List;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        RepartidorDAO repartidorDAO = new RepartidorDAO();
+
+        System.out.println("===== PRUEBA GUARDAR REPARTIDOR =====");
+
+        Repartidor repartidor =
+                new Repartidor("Juan Pérez");
+
+        boolean guardado = repartidorDAO.guardar(repartidor);
+
+        System.out.println("Guardado: " + guardado);
+        System.out.println("ID generado por MySQL: " + repartidor.getId());
+
+        System.out.println();
+        System.out.println("===== PRUEBA LISTAR REPARTIDORES =====");
+
+        List<Repartidor> repartidores =
+                repartidorDAO.listarTodos();
+
+        for (Repartidor r : repartidores) {
+
+            System.out.println(
+                    "ID: " + r.getId()
+                            + " | Nombre: " + r.getNombre()
+            );
+        }
+
+        System.out.println();
+        System.out.println("===== PRUEBA ACTUALIZAR =====");
+
+        repartidor.setNombre("Juan Pérez Actualizado");
+
+        boolean actualizado =
+                repartidorDAO.actualizar(repartidor);
+
+        System.out.println("Actualizado: " + actualizado);
+
+        Repartidor buscado =
+                repartidorDAO.buscarPorId(repartidor.getId());
+
+        if (buscado != null) {
+
+            System.out.println(
+                    "Encontrado → ID: "
+                            + buscado.getId()
+                            + " | Nombre: "
+                            + buscado.getNombre()
+            );
+        }
+
+        System.out.println();
+        System.out.println("===== PRUEBA ELIMINAR =====");
+
+        boolean eliminado =
+                repartidorDAO.eliminar(repartidor.getId());
+
+        System.out.println("Eliminado: " + eliminado);
+    }
+}
+
+/*package main;
+
 import dao.PedidoDAO;
 import modelo.EstadoPedido;
 import modelo.Pedido;
@@ -67,7 +137,7 @@ public class Main {
 
 
 
-/*package main;
+package main;
 
 import controlador.ConexionBD;
 import java.sql.Connection;
