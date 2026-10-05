@@ -1,5 +1,91 @@
 package main;
 
+import dao.EntregaDAO;
+import dao.PedidoDAO;
+import dao.RepartidorDAO;
+import modelo.Entrega;
+import modelo.EstadoPedido;
+import modelo.Pedido;
+import modelo.Repartidor;
+import modelo.TipoPedido;
+
+import java.time.LocalDate;
+import java.time.LocalTime;
+
+public class Main {
+
+    public static void main(String[] args) {
+
+        System.out.println("=================================");
+        System.out.println("PRUEBA COMPLETA DE ENTREGA");
+        System.out.println("=================================");
+
+        PedidoDAO pedidoDAO = new PedidoDAO();
+        RepartidorDAO repartidorDAO = new RepartidorDAO();
+        EntregaDAO entregaDAO = new EntregaDAO();
+
+        // 1. Crear pedido
+        System.out.println();
+        System.out.println("===== 1. CREAR PEDIDO =====");
+
+        Pedido pedido = new Pedido("Av. Providencia 123", TipoPedido.COMIDA, EstadoPedido.PENDIENTE);
+        boolean pedidoGuardado = pedidoDAO.guardar(pedido);
+
+        System.out.println("Pedido guardado: " + pedidoGuardado);
+        System.out.println("ID pedido: " + pedido.getId());
+
+        // 2. Crear repartidor
+        System.out.println();
+        System.out.println("===== 2. CREAR REPARTIDOR =====");
+
+        Repartidor repartidor = new Repartidor("Carlos Soto");
+        boolean repartidorGuardado = repartidorDAO.guardar(repartidor);
+
+        System.out.println("Repartidor guardado: " + repartidorGuardado);
+        System.out.println("ID repartidor: " + repartidor.getId());
+
+        // 3. Crear entrega
+        System.out.println();
+        System.out.println("===== 3. CREAR ENTREGA =====");
+
+        Entrega entrega = new Entrega(pedido.getId(), repartidor.getId(), LocalDate.now(), LocalTime.now());
+        boolean entregaGuardada = entregaDAO.guardar(entrega);
+
+        System.out.println("Entrega guardada: " + entregaGuardada);
+        System.out.println("ID entrega: " + entrega.getId());
+
+        // 4. Comprobar estado del pedido
+        System.out.println();
+        System.out.println("===== 4. COMPROBAR ESTADO =====");
+
+        Pedido pedidoActualizado = pedidoDAO.buscarPorId(pedido.getId());
+
+        if (pedidoActualizado != null) {
+            System.out.println("Pedido ID: " + pedidoActualizado.getId());
+            System.out.println("Estado: " + pedidoActualizado.getEstado());
+        }
+
+        // 5. Listar entregas
+        System.out.println();
+        System.out.println("===== 5. LISTAR ENTREGAS =====");
+
+        for (Entrega e : entregaDAO.listarTodos()) {
+            System.out.println("Entrega ID: " + e.getId() + " | Pedido: " + e.getIdPedido() + " | Repartidor: " + e.getIdRepartidor() + " | Fecha: " + e.getFecha() + " | Hora: " + e.getHora());
+        }
+
+        System.out.println();
+        System.out.println("=================================");
+        System.out.println("FIN DE LA PRUEBA");
+        System.out.println("=================================");
+    }
+}
+
+
+
+/*
+Prueba 3
+package main;
+
 import dao.RepartidorDAO;
 import modelo.Repartidor;
 
@@ -67,8 +153,12 @@ public class Main {
         System.out.println("Eliminado: " + eliminado);
     }
 }
+*/
 
-/*package main;
+
+/*
+Prueba 2
+package main;
 
 import dao.PedidoDAO;
 import modelo.EstadoPedido;
@@ -135,8 +225,10 @@ public class Main {
     }
 }
 
+*/
 
-
+/*
+Prueba 1
 package main;
 
 import controlador.ConexionBD;
