@@ -16,8 +16,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EntregaDAO {
-
-    public boolean guardar(Entrega entrega) {
+    // Crear
+    public boolean create(Entrega entrega) {
 
         String sqlEntrega = """
                 INSERT INTO entrega
@@ -90,8 +90,8 @@ public class EntregaDAO {
             }
         }
     }
-
-    public List<Entrega> listarTodos() {
+    //Leer todos los pedidos
+    public List<Entrega> readAll() {
 
         List<Entrega> entregas = new ArrayList<>();
 
@@ -120,8 +120,8 @@ public class EntregaDAO {
         return entregas;
     }
 
-    // UPDATE
-    public boolean actualizar(Entrega entrega) {
+    // Actualizar
+    public boolean update(Entrega entrega) {
 
         String sql = """
             UPDATE entrega
@@ -150,8 +150,8 @@ public class EntregaDAO {
     }
 
 
-    // DELETE
-    public boolean eliminar(int id) {
+    // Eliminar
+    public boolean delete(int id) {
 
         String sql = "DELETE FROM entrega WHERE id = ?";
 

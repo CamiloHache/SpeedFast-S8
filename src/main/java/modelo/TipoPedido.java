@@ -2,7 +2,7 @@ package modelo;
 
 public enum TipoPedido {
     COMIDA("Comida"),
-    ENCOMIENTA("Encomienta"),
+    ENCOMIENDA("Encomienda"),
     EXPRESS("Express");
 
     private final String nombre;

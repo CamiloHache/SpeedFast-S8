@@ -12,8 +12,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RepartidorDAO {
-    //Create
-    public boolean guardar(Repartidor repartidor) {
+    //Crear
+    public boolean create(Repartidor repartidor) {
         String sql = "INSERT INTO repartidor (nombre) VALUES (?)";
 
         try (Connection conexion = ConexionBD.obtenerConexion();
@@ -34,8 +34,8 @@ public class RepartidorDAO {
         }
     }
 
-    //Read
-    public List<Repartidor> listarTodos(){
+    //Listar o leer
+    public List<Repartidor> readAll(){
         List<Repartidor> repartidores = new ArrayList<>();
         String sql = "SELECT id, nombre FROM repartidor";
 
@@ -54,8 +54,8 @@ public class RepartidorDAO {
         return repartidores;
     }
 
-    //Update
-    public boolean actualizar(Repartidor repartidor) {
+    //Actualizar
+    public boolean update(Repartidor repartidor) {
         String sql = "UPDATE repartidor SET nombre = ? WHERE id = ?";
 
         try (Connection conexion = ConexionBD.obtenerConexion();
@@ -70,8 +70,8 @@ public class RepartidorDAO {
         }
     }
 
-    //Delete
-    public boolean eliminar(int id) {
+    //Eliminar
+    public boolean delete(int id) {
         String sql = "DELETE FROM repartidor WHERE id = ?";
 
         try (Connection conexion = ConexionBD.obtenerConexion();
