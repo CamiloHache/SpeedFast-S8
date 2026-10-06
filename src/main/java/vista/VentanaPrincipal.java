@@ -66,7 +66,10 @@ public class VentanaPrincipal extends JFrame {
             ventana.setVisible(true);
         });
 
-        btnEntregas.addActionListener(e -> {JOptionPane.showMessageDialog(this, "Módulo de entregas en construcción.");});
+        btnEntregas.addActionListener(e -> {
+            VentanaEntregas ventana = new VentanaEntregas();
+            ventana.setVisible(true);
+        });
 
         btnSalir.addActionListener(e -> System.exit(0));
 
